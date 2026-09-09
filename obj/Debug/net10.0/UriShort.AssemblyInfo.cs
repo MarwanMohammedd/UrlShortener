@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("UriShort")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+451e976ac58c371572956bcaa0bb2e27edcc4ed2")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+19f411ef04b520f6eb8d71440354f05ec7e4e5f2")]
 [assembly: System.Reflection.AssemblyProductAttribute("UriShort")]
 [assembly: System.Reflection.AssemblyTitleAttribute("UriShort")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
