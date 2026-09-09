@@ -14,23 +14,30 @@ jobs:
     - name: Setup .NET
       uses: actions/setup-dotnet@v4
       with:
-        dotnet-version: 10.0.x
+        dotnet-version: 8.0.x   # تأكد من الإصدار الصح لمشروعك
     - name: Restore dependencies
-      run: dotnet restore
+      run: dotnet restore UrlShortener.sln
     - name: Build
-      run: dotnet build --no-restore
+      run: dotnet build UrlShortener.sln --no-restore
     - name: Test
-      run: dotnet test --no-build --verbosity normal
-  
+      run: dotnet test UrlShortener.sln --no-build --verbosity normal
+
   notifyTelegram:
-    needs: build
-    if: always()
-    runs-on: ubuntu-latest
-    steps:
-    - name: send custom message
-      uses: appleboy/telegram-action@master
-      with:
-        to: ${{ secrets.Telegram_To }}
-        token: ${{ secrets.Telegram_Token }}
-        message: |
-          Build status: ${{ needs.build.result }}
+  needs: build
+  if: always()
+  runs-on: ubuntu-latest
+  steps:
+  - name: send custom message
+    uses: appleboy/telegram-action@master
+    with:
+      to: ${{ secrets.Telegram_To }}
+      token: ${{ secrets.Telegram_Token }}
+      format: markdown
+      message: |
+        ${{ needs.build.result == 'success' && '✅ *Build Succeeded!*' || '❌ *Build Failed!*' }}
+
+        📦 *Repo:* `${{ github.repository }}`
+        🌿 *Branch:* `${{ github.ref_name }}`
+        👤 *Triggered by:* ${{ github.actor }}
+        📝 *Commit:* [`${{ github.sha }}`](${{ github.server_url }}/${{ github.repository }}/commit/${{ github.sha }})
+        🔗 [View full run](${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }})
